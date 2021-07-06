@@ -28,7 +28,7 @@ class Matrix:
         pass
 
     def __getitem__(self, index):
-        pass
+        return self.array[index]
     
     def __setitem__(self, index, value):
-        pass
+        self.array[index] = value
