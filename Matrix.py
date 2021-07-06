@@ -17,7 +17,26 @@ class Matrix:
         self.array = array
 
     def __repr__(self):
-        pass
+        single_dimension_of_matrix = []
+        for i in self.array:
+            for j in i:
+                single_dimension_of_matrix.append(j)
+                
+        area_of_element = len(str(max(single_dimension_of_matrix)))   
+        print()
+                
+        a = ''
+        for i in self.array:
+            a += '['
+            for j in i:
+                for s in range(area_of_element - len(str(j))):
+                    a += ' '
+                a += str(j) + ' ' 
+            a += ']'
+            
+            a += '\n '
+            
+        return '['+a[:len(a)-2]+']' 
 
     def __iter__(self):
         pass
