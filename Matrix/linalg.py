@@ -20,7 +20,7 @@ def dot(matrix1, matrix2):
         raise TypeError("The given argument must be a Matrix!")
 
 def add(matrix1, matrix2):
-    if(matrix1.shape == matrix2.shape):
+    if (matrix1.shape == matrix2.shape):
         tmp_matrix = []
         for i in range(matrix1.shape[0]):
             tmp_array = []
@@ -30,8 +30,21 @@ def add(matrix1, matrix2):
             tmp_matrix.append(tmp_array) 
         
         return Matrix(tmp_matrix)
-    else:
-        raise LinAlgError("The dimensions of the two given matrices must be the same")
+    elif (matrix1.shape[0] % matrix2.shape[0] == 0 and matrix1.shape[1] % matrix2.shape[1] == 0):
+        row_mult = int(matrix1.shape[0] / matrix2.shape[0])
+        col_mult = int(matrix1.shape[1] / matrix2.shape[1])
+                
+        tmp_matrix = matrix1.array
+        
+        for x in range(row_mult):
+            for y in range(col_mult):
+                for i in range(matrix2.shape[0]):
+                    for j in range(matrix2.shape[1]):
+                        tmp_matrix[i + matrix2.shape[0] * x][j + matrix2.shape[1] * y] += matrix2.array[i][j]
+                   
+        return Matrix(tmp_matrix)
+    else:         
+        raise LinAlgError("The dimensions of the matrices must be proportional")
 
 def sub(matrix1, matrix2):
     if(matrix1.shape == matrix2.shape):
