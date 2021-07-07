@@ -10,12 +10,21 @@ def transpose(matrix):
 
 def dot(matrix1, matrix2):
     if type(matrix1) == Matrix and type(matrix2) == Matrix:
-        temp = zero(matrix1.shape[0],matrix2.shape[1])
-        for i in range(matrix1.shape[0]):
-            for k in range(matrix2.shape[1]):
-                for j in range(matrix2.shape[0]):
-                    temp[i,k] += matrix1[i,j]*matrix2[j,k]             
-        return Matrix(temp)
+        if matrix1.shape[1] == matrix2.shape[0]:
+            temp = zero(matrix1.shape[0],matrix2.shape[1])
+            for i in range(matrix1.shape[0]):
+                for k in range(matrix2.shape[1]):
+                    for j in range(matrix2.shape[0]):
+                        temp[i,k] += matrix1[i,j]*matrix2[j,k]             
+            return Matrix(temp)
+        elif matrix1.shape[0] == matrix2.shape[0] and matrix1.shape[1] == matrix2.shape[1]:
+            temp = zero(matrix1.shape[0],matrix1.shape[1])
+            for i in range(matrix1.shape[0]):
+                for j in range(matrix1.shape[1]):
+                        temp[i,j] = matrix1[i,j]*matrix2[i,j]
+            return Matrix(temp)
+        else:
+            raise LinAlgError("ValueError: shapes ({},{}) and ({},{}) not aligned: {} (dim 1) != {} (dim 0)".format(matrix1.shape[0],matrix1.shape[1],matrix2.shape[0],matrix2.shape[1],matrix1.shape[1],matrix2.shape[0]))
     else:
         raise TypeError("The given argument must be a Matrix!")
 
