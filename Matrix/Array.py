@@ -118,7 +118,7 @@ class Matrix:
             for row in self:
                 temp_row = []
                 for col in row:
-                    temp_row.append(col ** other)
+                    temp_row.append(other**col)
                 temp.append(temp_row)
             return Matrix(temp)
 
