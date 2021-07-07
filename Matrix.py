@@ -15,6 +15,7 @@ class Matrix:
             else:
                 raise MatrixError("Creating a matrix from ragged nested sequences (which is a list matrices with different lengths or shapes) is deprecated.")
         self.array = array
+        self.shape = (self.__row(), self.__col())
 
     def __repr__(self):
         single_dimension_of_matrix = []
@@ -41,8 +42,17 @@ class Matrix:
         for i in self.array:
             yield i
 
+    def __len__(self):
+        return len(self.array)
+
     def __getitem__(self, index):
         return self.array[index]
     
     def __setitem__(self, index, value):
         self.array[index] = value
+
+    def __row(self):
+        return len(self.array)
+
+    def __col(self):
+        return len(self.array[0])
