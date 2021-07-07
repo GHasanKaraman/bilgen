@@ -1,6 +1,7 @@
 from bilgen.Matrix.Array import Matrix
 from bilgen.Matrix.Errors import AxisError
 from bilgen.Matrix.Errors import LinAlgError
+import builtins
 
 def transpose(matrix):
     if type(matrix) == Matrix:
@@ -248,3 +249,29 @@ def min(matrix, axis = None, keepdims = False):
         return minimum
     else:
         raise AxisError("axis {} is out of bounds for matrix of dimension 2".format(axis))
+
+def sum(matrix, axis = None, keepdims = False):
+    if axis == None:
+        tmp = 0
+        for i in matrix:
+            for j in i:
+                tmp += j
+                
+        return tmp if keepdims == False else Matrix([[tmp]])
+    elif axis == 0:
+        tmp = []
+        for i in range(matrix.shape[1]):
+            tmp.append(0)
+            
+        for i in matrix:
+            for j in range(matrix.shape[1]):
+                tmp[j] += (i[j])
+                
+        return tmp if keepdims == False else Matrix([tmp])
+    
+    elif axis == 1:
+        tmp = []
+        for i in matrix:
+            tmp.append(builtins.sum(i)) 
+        
+        return tmp if keepdims == False else Matrix([[tmp[0]], [tmp[1]], [tmp[2]]])
