@@ -32,7 +32,36 @@ def inv(matrix):
     pass
 
 def det(matrix):
-    pass
+    if type(matrix) == Matrix:
+        r, c = matrix.shape
+        if r == c:
+            if r == 1:
+                return matrix[0, 0]
+            elif r == 2:
+                T_right = matrix[0, 0] * matrix[1, 1]
+                T_left = matrix[0, 1] * matrix[1, 0]
+                return T_right - T_left;
+            else:
+                det_matrix = 0
+                for i in range(c):
+                    det_matrix += matrix[0, i] * ((-1)**i) * det(__slice(matrix, i))
+                return det_matrix
+        else:
+            raise LinAlgError("The matrix must be square!")
+    else:
+        raise TypeError("The given argument must be a Matrix!")
 
+def __slice(matrix, col):
+    new_matrix = matrix[1:]
+    temp = []
+
+    for i, row in enumerate(new_matrix):
+        temp_row = []
+        for j, cl in enumerate(row):
+            if not j == col:
+                temp_row.append(new_matrix[i][j])
+        temp.append(temp_row)
+    return Matrix(temp)
+    
 def norm(matrix):
     pass
