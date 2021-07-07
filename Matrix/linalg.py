@@ -75,7 +75,28 @@ def ignore(matrix, row, col):
         return Matrix(temp)
 
 def minor(matrix):
-    pass
+    temp = []
+    for i, r in enumerate(matrix):
+        temp_row = []
+        for j, c in enumerate(r):
+            temp_matrix = ignore(matrix, i, j)
+            temp_det = det(temp_matrix)
+            temp_row.append(temp_det)
+        temp.append(temp_row)
+    return Matrix(temp)
+
+def cofactor(matrix, isMinor = True):
+    new_matrix = matrix
+    if not isMinor:
+        new_matrix = minor(matrix)
+    temp = []
+    for i, r in enumerate(new_matrix):
+        temp_row = []
+        for j, c in enumerate(r):
+            coeff = (-1)**(i+j)
+            temp_row.append(coeff*new_matrix[i, j])
+        temp.append(temp_row)
+    return Matrix(temp)
 
 def inv(matrix):
     pass
