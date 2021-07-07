@@ -23,7 +23,6 @@ class Matrix:
                 single_dimension_of_matrix.append(j)
                 
         area_of_element = len(str(max(single_dimension_of_matrix)))   
-        print()
                 
         a = ''
         for i in self.array:
