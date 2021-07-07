@@ -20,6 +20,9 @@ def dot(matrix1, matrix2):
         raise TypeError("The given argument must be a Matrix!")
 
 def add(matrix1, matrix2):
+    if matrix1.shape[0] + matrix1.shape[1] < matrix2.shape[0] + matrix2.shape[1]:        
+        matrix1, matrix2 = matrix2, matrix1
+        
     if (matrix1.shape == matrix2.shape):
         tmp_matrix = []
         for i in range(matrix1.shape[0]):
