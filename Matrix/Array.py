@@ -102,6 +102,26 @@ class Matrix:
                 temp.append(temp_row)
             return Matrix(temp)
 
+    def __pow__(self,other):
+        if type(other) == int or type(other) == float:
+            temp = []
+            for row in self:
+                temp_row = []
+                for col in row:
+                    temp_row.append(col ** other)
+                temp.append(temp_row)
+            return Matrix(temp)
+    
+    def __rpow__(self,other):
+        if type(other) == int or type(other) == float:
+            temp = []
+            for row in self:
+                temp_row = []
+                for col in row:
+                    temp_row.append(col ** other)
+                temp.append(temp_row)
+            return Matrix(temp)
+
     def __row(self):
         return len(self.array)
 
