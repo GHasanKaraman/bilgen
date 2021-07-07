@@ -3,3 +3,6 @@ class MatrixError(Exception):
 
 class LinAlgError(Exception):
     pass
+
+class AxisError(Exception):
+    pass

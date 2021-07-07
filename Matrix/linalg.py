@@ -1,5 +1,5 @@
 from bilgen.Matrix.Array import Matrix
-from bilgen.Matrix.Errors import MatrixError
+from bilgen.Matrix.Errors import AxisError
 from bilgen.Matrix.Errors import LinAlgError
 
 def transpose(matrix):
@@ -167,3 +167,84 @@ def identity(size):
     for i in range(size):
         temp[i, i] = 1
     return temp
+
+def max(matrix, axis = None, keepdims = False):
+    if axis == None:
+        maximum = matrix[0, 0]
+        for r in matrix:
+            for c in r:
+                if maximum < c:
+                    maximum = c
+        if keepdims:
+            return Matrix([[maximum]])
+        return maximum
+    elif axis == 0:
+        maximum = []
+        matrix = matrix.transpose()
+        for i, r in enumerate(matrix):
+            temp_max = r[0]
+            for j, c in enumerate(r):
+                if temp_max < c:
+                    temp_max = c
+            maximum.append(temp_max)
+        if keepdims:
+            return Matrix([maximum])
+        return maximum
+
+    elif axis == 1:
+        maximum = []
+        for i, r in enumerate(matrix):
+            temp_max = r[0]
+            for j, c in enumerate(r):
+                if temp_max < c:
+                    temp_max = c
+            maximum.append(temp_max)
+        if keepdims:
+            temp_matrix = []
+            for i in maximum:
+                temp_matrix.append([i])
+            return Matrix(temp_matrix)
+        return maximum
+    else:
+        raise AxisError("axis {} is out of bounds for matrix of dimension 2".format(axis))
+
+
+def min(matrix, axis = None, keepdims = False):
+    if axis == None:
+        minimum = matrix[0, 0]
+        for r in matrix:
+            for c in r:
+                if minimum > c:
+                    minimum = c
+        if keepdims:
+            return Matrix([[minimum]])
+        return minimum
+    elif axis == 0:
+        minimum = []
+        matrix = matrix.transpose()
+        for i, r in enumerate(matrix):
+            temp_min = r[0]
+            for j, c in enumerate(r):
+                if temp_min > c:
+                    temp_min = c
+            minimum.append(temp_min)
+        if keepdims:
+            return Matrix([minimum])
+        return minimum
+
+    elif axis == 1:
+        minimum = []
+        for i, r in enumerate(matrix):
+            temp_min = r[0]
+            for j, c in enumerate(r):
+                if temp_min > c:
+                    temp_min = c
+            minimum.append(temp_min)
+        if keepdims:
+            temp_matrix = []
+            for i in minimum:
+                temp_matrix.append([i])
+            return Matrix(temp_matrix)
+        return minimum
+    else:
+        raise AxisError("axis {} is out of bounds for matrix of dimension 2".format(axis))
