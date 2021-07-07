@@ -71,6 +71,26 @@ class Matrix:
     def __setitem__(self, index, value):
         self.array[index] = value
 
+    def __mul__(self, other):
+        if type(other) == int:
+            temp = []
+            for row in self:
+                temp_row = []
+                for col in row:
+                    temp_row.append(col * other)
+                temp.append(temp_row)
+            return Matrix(temp)
+    
+    def __rmul__(self, other):
+        if type(other) == int:
+            temp = []
+            for row in self:
+                temp_row = []
+                for col in row:
+                    temp_row.append(col * other)
+                temp.append(temp_row)
+            return Matrix(temp)
+
     def __row(self):
         return len(self.array)
 
