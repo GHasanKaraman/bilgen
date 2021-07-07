@@ -93,7 +93,7 @@ def minor(matrix):
         temp.append(temp_row)
     return Matrix(temp)
 
-def cofactor(matrix, isMinor = True):
+def cofactor(matrix, isMinor = False):
     new_matrix = matrix
     if not isMinor:
         new_matrix = minor(matrix)
@@ -106,8 +106,16 @@ def cofactor(matrix, isMinor = True):
         temp.append(temp_row)
     return Matrix(temp)
 
+def adjoint(matrix, isCofactor = False):
+    new_matrix = matrix
+    if not isCofactor:
+        new_matrix = cofactor(matrix)
+    return transpose(new_matrix)
+
 def inv(matrix):
-    pass
+    coeff = 1/det(matrix)
+    print(coeff)
+    return adjoint(matrix)*coeff
 
 def norm(matrix):
     pass

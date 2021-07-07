@@ -83,7 +83,7 @@ class Matrix:
             self.array[index] = value
 
     def __mul__(self, other):
-        if type(other) == int:
+        if type(other) == int or type(other) == float:
             temp = []
             for row in self:
                 temp_row = []
@@ -93,7 +93,7 @@ class Matrix:
             return Matrix(temp)
     
     def __rmul__(self, other):
-        if type(other) == int:
+        if type(other) == int or type(other) == float:
             temp = []
             for row in self:
                 temp_row = []
