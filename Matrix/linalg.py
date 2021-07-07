@@ -9,7 +9,15 @@ def transpose(matrix):
         raise LinAlgError("The given argument must be a Matrix!")
 
 def dot(matrix1, matrix2):
-    pass
+    if type(matrix1) == Matrix and type(matrix2) == Matrix:
+        temp = zero(matrix1.shape[0],matrix2.shape[1])
+        for i in range(matrix1.shape[0]):
+            for k in range(matrix2.shape[1]):
+                for j in range(matrix2.shape[0]):
+                    temp[i,k] += matrix1[i,j]*matrix2[j,k]             
+        return Matrix(temp)
+    else:
+        raise TypeError("The given argument must be a Matrix!")
 
 def add(matrix1, matrix2):
     if(matrix1.shape == matrix2.shape):
