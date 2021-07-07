@@ -38,7 +38,8 @@ class Matrix:
         return '['+a[:len(a)-2]+']' 
 
     def __iter__(self):
-        pass
+        for i in self.array:
+            yield i
 
     def __getitem__(self, index):
         return self.array[index]
