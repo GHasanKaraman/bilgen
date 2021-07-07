@@ -47,7 +47,27 @@ class Matrix:
         return len(self.array)
 
     def __getitem__(self, index):
-        return self.array[index]
+        l = 0
+        if type(index) == tuple:
+            l = len(index)
+        if l > 2:
+            raise IndexError("too many indices for matrix: matrix is 2-dimensional, but {} were indexed".format(l))
+        elif l == 2:
+            if type(index[0]) == int and type(index[1]) == int:
+                return self.array[index[0]][index[1]]
+            else:
+                temp = []
+                sliced_array = self.array[index[0]]
+                if not type(sliced_array[0]) == list:
+                    sliced_array = [sliced_array]
+                for arr in sliced_array:
+                    sliced_col = arr[index[1]]
+                    if not type(sliced_col) == list:
+                        sliced_col = [sliced_col]
+                    temp.append(sliced_col)
+                return Matrix(temp)               
+        else:
+            return self.array[index]
     
     def __setitem__(self, index, value):
         self.array[index] = value
