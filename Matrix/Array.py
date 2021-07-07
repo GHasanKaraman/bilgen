@@ -24,27 +24,25 @@ class Matrix:
             for j in i:
                 single_dimension_of_matrix.append(j)
                 
-        control = [False,False]
-        max_min = [max(single_dimension_of_matrix),min(single_dimension_of_matrix)]
+        single_dimension_of_matrix_str_len = []
         
-        for i in max_min:
-            if type(i) == float:
-                control[i] = True
+        for i in single_dimension_of_matrix:
+            single_dimension_of_matrix_str_len.append(len(str(i)))
             
-        num_area = [len(str(max(single_dimension_of_matrix))), len(str(min(single_dimension_of_matrix)))] 
-                
+        max_area = max(single_dimension_of_matrix_str_len)
+        
         a = ''
         for i in self.array:
             a += '['
             for j in i:
-                if control[num_area.index(max(num_area))] == True:
-                    continue
-                else:
-                    for s in range(max(num_area) - len(str(j))):
+                if not type(single_dimension_of_matrix[single_dimension_of_matrix_str_len.index(max_area)]) == float:
+                    for s in range(max_area - len(str(j))):
                         a += ' '
                 a += str(j) + ' ' 
+                if type(single_dimension_of_matrix[single_dimension_of_matrix_str_len.index(max_area)]) == float:
+                    for s in range(max_area - len(str(j))):
+                        a += ' '
             a += ']'
-            
             a += '\n '
             
         return '['+a[:len(a)-2]+']' 
