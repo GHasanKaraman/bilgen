@@ -1,7 +1,9 @@
+from bilgen.matrix.Errors import MatrixError
 from bilgen.Matrix.Array import Matrix
 
 def transpose(matrix):
-    pass
+    if type(matrix) == Matrix
+        return matrix.transpose()
 
 def dot(matrix1, matrix2):
     pass
