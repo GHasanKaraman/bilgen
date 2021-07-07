@@ -110,8 +110,32 @@ def inv(matrix):
     coeff = 1/det(matrix)
     return adjoint(matrix)*coeff
 
-def norm(matrix):
-    pass
+def norm(matrix, axis= None, keepdims = False):
+    if type(matrix) == Matrix:
+        matrix = matrix**2  
+        if axis == None: 
+            if keepdims == False: 
+                return sum(matrix)**(1/2)
+            else: 
+                return sum(matrix, keepdims= True)**(1/2)
+        elif axis == 0:
+            if keepdims == False: 
+                temp = sum(matrix, axis = 0)
+                for i,k in enumerate(temp):
+                    temp[i] = k**(1/2)
+                return temp
+            else: 
+                return sum(matrix, axis = 0, keepdims=True)**(1/2)
+        elif axis == 1:
+            if keepdims == False: 
+                temp = sum(matrix, axis = 1)
+                for i,k in enumerate(temp):
+                    temp[i] = k**(1/2)
+                return temp
+            else: 
+                return sum(matrix, axis = 1, keepdims= True)**(1/2)
+    else:
+        raise TypeError("The given argument must be a Matrix!")
 
 def zero(row, col):
     temp = []
