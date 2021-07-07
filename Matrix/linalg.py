@@ -43,6 +43,17 @@ def inv(matrix):
     pass
 
 def det(matrix):
+    def __slice(matrix, col):
+        new_matrix = matrix[1:]
+        temp = []
+
+        for i, row in enumerate(new_matrix):
+            temp_row = []
+            for j, cl in enumerate(row):
+                if not j == col:
+                    temp_row.append(new_matrix[i][j])
+            temp.append(temp_row)
+        return Matrix(temp)
     if type(matrix) == Matrix:
         r, c = matrix.shape
         if r == c:
@@ -61,18 +72,6 @@ def det(matrix):
             raise LinAlgError("The matrix must be square!")
     else:
         raise TypeError("The given argument must be a Matrix!")
-
-def __slice(matrix, col):
-    new_matrix = matrix[1:]
-    temp = []
-
-    for i, row in enumerate(new_matrix):
-        temp_row = []
-        for j, cl in enumerate(row):
-            if not j == col:
-                temp_row.append(new_matrix[i][j])
-        temp.append(temp_row)
-    return Matrix(temp)
-    
+        
 def norm(matrix):
     pass
