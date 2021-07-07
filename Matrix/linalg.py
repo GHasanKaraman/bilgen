@@ -38,22 +38,9 @@ def sub(matrix1, matrix2):
         return Matrix(tmp_matrix)
     else:
         raise LinAlgError("The dimensions of the two given matrices must be the same")
-    
-def inv(matrix):
-    pass
 
 def det(matrix):
-    def __slice(matrix, col):
-        new_matrix = matrix[1:]
-        temp = []
 
-        for i, row in enumerate(new_matrix):
-            temp_row = []
-            for j, cl in enumerate(row):
-                if not j == col:
-                    temp_row.append(new_matrix[i][j])
-            temp.append(temp_row)
-        return Matrix(temp)
     if type(matrix) == Matrix:
         r, c = matrix.shape
         if r == c:
@@ -66,12 +53,47 @@ def det(matrix):
             else:
                 det_matrix = 0
                 for i in range(c):
-                    det_matrix += matrix[0, i] * ((-1)**i) * det(__slice(matrix, i))
+                    det_matrix += matrix[0, i] * ((-1)**i) * det(ignore(matrix, 0, i))
                 return det_matrix
         else:
             raise LinAlgError("The matrix must be square!")
     else:
         raise TypeError("The given argument must be a Matrix!")
-        
+
+def ignore(matrix, row, col):
+        new_matrix = []
+        for i, r in enumerate(matrix):
+            if not i == row:
+                new_matrix.append(r)
+        temp = []
+        for i, row in enumerate(new_matrix):
+            temp_row = []
+            for j, _ in enumerate(row):
+                if not j == col:
+                    temp_row.append(new_matrix[i][j])
+            temp.append(temp_row)
+        return Matrix(temp)
+
+def minor(matrix):
+    pass
+
+def inv(matrix):
+    pass
+
 def norm(matrix):
+    pass
+
+def zero(row, col):
+    temp = []
+    for i in range(row):
+        temp_row = []
+        for j in range(col):
+            temp_row.append(0)
+        temp.append(temp_row)
+    return Matrix(temp)
+
+def one(row, col):
+    pass
+
+def identity():
     pass
