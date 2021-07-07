@@ -114,7 +114,6 @@ def adjoint(matrix, isCofactor = False):
 
 def inv(matrix):
     coeff = 1/det(matrix)
-    print(coeff)
     return adjoint(matrix)*coeff
 
 def norm(matrix):
@@ -130,7 +129,16 @@ def zero(row, col):
     return Matrix(temp)
 
 def one(row, col):
-    pass
+    temp = []
+    for i in range(row):
+        temp_row = []
+        for j in range(col):
+            temp_row.append(1)
+        temp.append(temp_row)
+    return Matrix(temp)
 
-def identity():
-    pass
+def identity(size):
+    temp = zero(size, size)
+    for i in range(size):
+        temp[i, i] = 1
+    return temp
