@@ -22,15 +22,24 @@ class Matrix:
             for j in i:
                 single_dimension_of_matrix.append(j)
                 
-        max_num_area = len(str(max(single_dimension_of_matrix)))   
-        min_num_area = len(str(min(single_dimension_of_matrix)))   
+        control = [False,False]
+        max_min = [max(single_dimension_of_matrix),min(single_dimension_of_matrix)]
+        
+        for i in max_min:
+            if type(i) == float:
+                control[i] = True
+            
+        num_area = [len(str(max(single_dimension_of_matrix))), len(str(min(single_dimension_of_matrix)))] 
                 
         a = ''
         for i in self.array:
             a += '['
             for j in i:
-                for s in range(max([max_num_area,min_num_area]) - len(str(j))):
-                    a += ' '
+                if control[num_area.index(max(num_area))] == True:
+                    continue
+                else:
+                    for s in range(max(num_area) - len(str(j))):
+                        a += ' '
                 a += str(j) + ' ' 
             a += ']'
             
