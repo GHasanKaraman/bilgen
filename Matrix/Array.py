@@ -69,7 +69,18 @@ class Matrix:
             return self.array[index]
     
     def __setitem__(self, index, value):
-        self.array[index] = value
+        l = 0
+        if type(index) == tuple:
+            l = len(index)
+        if l > 2:
+            raise IndexError("too many indices for matrix: matrix is 2-dimensional, but {} were indexed".format(l))
+        elif l == 2:
+            if type(index[0]) == int and type(index[1]) == int:
+                self.array[index[0]][index[1]] = value
+            else:
+                pass               
+        else:
+            self.array[index] = value
 
     def __mul__(self, other):
         if type(other) == int:
