@@ -82,6 +82,60 @@ class Matrix:
         else:
             self.array[index] = value
 
+    def __add(self, matrix1, matrix2):
+        if matrix1.shape[0] + matrix1.shape[1] < matrix2.shape[0] + matrix2.shape[1]:        
+            matrix1, matrix2 = matrix2, matrix1
+        
+        if (matrix1.shape == matrix2.shape):
+            tmp_matrix = []
+            for i in range(matrix1.shape[0]):
+                tmp_array = []
+                for j in range(matrix1.shape[1]):
+                    tmp_array.append(matrix1[i,j] + matrix2[i, j])
+                
+                tmp_matrix.append(tmp_array) 
+            
+            return Matrix(tmp_matrix)
+        elif (matrix1.shape[0] % matrix2.shape[0] == 0 and matrix1.shape[1] % matrix2.shape[1] == 0):
+            row_mult = int(matrix1.shape[0] / matrix2.shape[0])
+            col_mult = int(matrix1.shape[1] / matrix2.shape[1])
+                    
+            tmp_matrix = matrix1.array
+            
+            for x in range(row_mult):
+                for y in range(col_mult):
+                    for i in range(matrix2.shape[0]):
+                        for j in range(matrix2.shape[1]):
+                            tmp_matrix[i + matrix2.shape[0] * x][j + matrix2.shape[1] * y] += matrix2.array[i][j]
+                    
+            return Matrix(tmp_matrix)
+        else:         
+            raise MatrixError("The dimensions of the matrices must be proportional")
+
+    def __add__(self, other):
+        if type(other) is int or type(other) is float:
+            temp = []
+            for row in self:
+                temp_row = []
+                for col in row:
+                    temp_row.append(col + other)
+                temp.append(temp_row)
+            return Matrix(temp)
+        else:
+            return self.__add(self, other)
+    
+    def __radd__(self, other):
+        if type(other) is int or type(other) is float:
+            temp = []
+            for row in self:
+                temp_row = []
+                for col in row:
+                    temp_row.append(col + other)
+                temp.append(temp_row)
+            return Matrix(temp)
+        else:
+            return self.__add(self, other)
+
     def __mul__(self, other):
         if type(other) == int or type(other) == float:
             temp = []
@@ -99,6 +153,26 @@ class Matrix:
                 temp_row = []
                 for col in row:
                     temp_row.append(col * other)
+                temp.append(temp_row)
+            return Matrix(temp)
+
+    def __truediv__(self, other):
+        if type(other) == int or type(other) == float:
+            temp = []
+            for row in self:
+                temp_row = []
+                for col in row:
+                    temp_row.append(col / other)
+                temp.append(temp_row)
+            return Matrix(temp)
+    
+    def __rtruediv__(self, other):
+        if type(other) == int or type(other) == float:
+            temp = []
+            for row in self:
+                temp_row = []
+                for col in row:
+                    temp_row.append(other / col)
                 temp.append(temp_row)
             return Matrix(temp)
 

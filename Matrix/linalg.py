@@ -27,51 +27,19 @@ def dot(matrix1, matrix2):
         else:
             raise LinAlgError("ValueError: shapes ({},{}) and ({},{}) not aligned: {} (dim 1) != {} (dim 0)".format(matrix1.shape[0],matrix1.shape[1],matrix2.shape[0],matrix2.shape[1],matrix1.shape[1],matrix2.shape[0]))
     else:
-        raise TypeError("The given argument must be a Matrix!")
+        raise TypeError("The given arguments must be a Matrix!")
 
 def add(matrix1, matrix2):
-    if matrix1.shape[0] + matrix1.shape[1] < matrix2.shape[0] + matrix2.shape[1]:        
-        matrix1, matrix2 = matrix2, matrix1
-        
-    if (matrix1.shape == matrix2.shape):
-        tmp_matrix = []
-        for i in range(matrix1.shape[0]):
-            tmp_array = []
-            for j in range(matrix1.shape[1]):
-                tmp_array.append(matrix1[i,j] + matrix2[i, j])
-            
-            tmp_matrix.append(tmp_array) 
-        
-        return Matrix(tmp_matrix)
-    elif (matrix1.shape[0] % matrix2.shape[0] == 0 and matrix1.shape[1] % matrix2.shape[1] == 0):
-        row_mult = int(matrix1.shape[0] / matrix2.shape[0])
-        col_mult = int(matrix1.shape[1] / matrix2.shape[1])
-                
-        tmp_matrix = matrix1.array
-        
-        for x in range(row_mult):
-            for y in range(col_mult):
-                for i in range(matrix2.shape[0]):
-                    for j in range(matrix2.shape[1]):
-                        tmp_matrix[i + matrix2.shape[0] * x][j + matrix2.shape[1] * y] += matrix2.array[i][j]
-                   
-        return Matrix(tmp_matrix)
-    else:         
-        raise LinAlgError("The dimensions of the matrices must be proportional")
+    if type(matrix1) == Matrix and type(matrix2) == Matrix:
+        return matrix1 + matrix2
+    else:
+        raise TypeError("The given arguments must be a Matrix!")
 
 def sub(matrix1, matrix2):
-    if(matrix1.shape == matrix2.shape):
-        tmp_matrix = []
-        for i in range(matrix1.shape[0]):
-            tmp_array = []
-            for j in range(matrix1.shape[1]):
-                tmp_array.append(matrix1[i,j] - matrix2[i, j])
-            
-            tmp_matrix.append(tmp_array) 
-        
-        return Matrix(tmp_matrix)
+    if type(matrix1) == Matrix and type(matrix2) == Matrix:
+        return matrix1 + (matrix2 * (-1))
     else:
-        raise LinAlgError("The dimensions of the two given matrices must be the same")
+        raise TypeError("The given arguments must be a Matrix!")
 
 def det(matrix):
 
