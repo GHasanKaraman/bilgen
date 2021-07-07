@@ -77,7 +77,7 @@ def minor(matrix):
     temp = []
     for i, r in enumerate(matrix):
         temp_row = []
-        for j, c in enumerate(r):
+        for j in range(len(r)):
             temp_matrix = ignore(matrix, i, j)
             temp_det = det(temp_matrix)
             temp_row.append(temp_det)
@@ -91,7 +91,7 @@ def cofactor(matrix, isMinor = False):
     temp = []
     for i, r in enumerate(new_matrix):
         temp_row = []
-        for j, c in enumerate(r):
+        for j in range(len(r)):
             coeff = (-1)**(i+j)
             temp_row.append(coeff*new_matrix[i, j])
         temp.append(temp_row)
