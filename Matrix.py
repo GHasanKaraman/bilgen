@@ -23,13 +23,14 @@ class Matrix:
             for j in i:
                 single_dimension_of_matrix.append(j)
                 
-        area_of_element = len(str(max(single_dimension_of_matrix)))   
+        max_num_area = len(str(max(single_dimension_of_matrix)))   
+        min_num_area = len(str(min(single_dimension_of_matrix)))   
                 
         a = ''
         for i in self.array:
             a += '['
             for j in i:
-                for s in range(area_of_element - len(str(j))):
+                for s in range(max([max_num_area,min_num_area]) - len(str(j))):
                     a += ' '
                 a += str(j) + ' ' 
             a += ']'
