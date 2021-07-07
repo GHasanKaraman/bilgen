@@ -274,4 +274,10 @@ def sum(matrix, axis = None, keepdims = False):
         for i in matrix:
             tmp.append(builtins.sum(i)) 
         
-        return tmp if keepdims == False else Matrix([[tmp[0]], [tmp[1]], [tmp[2]]])
+        if keepdims == False:
+            return tmp
+        else:
+            tmp2 = []
+            for i in range(matrix.shape[0]):
+                tmp2.append([tmp[i]])
+            return Matrix(tmp2)
