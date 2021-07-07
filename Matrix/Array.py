@@ -1,8 +1,7 @@
-from bilgen.Errors import MatrixError
+from bilgen.Matrix.Errors import MatrixError
 
 class Matrix:
     def __init__(self, array):
-        row = len(array)
         col = 0
         if type(array[0]) is list:
             col = len(array[0])
