@@ -1,7 +1,5 @@
 from bilgen.Matrix.Array import Matrix
-from bilgen.Matrix.Errors import AxisError
 from bilgen.Matrix.Errors import LinAlgError
-import builtins
 
 def transpose(matrix):
     if type(matrix) == Matrix:
@@ -42,7 +40,6 @@ def sub(matrix1, matrix2):
         raise TypeError("The given arguments must be a Matrix!")
 
 def det(matrix):
-
     if type(matrix) == Matrix:
         r, c = matrix.shape
         if r == c:
@@ -162,114 +159,19 @@ def identity(size):
     return temp
 
 def max(matrix, axis = None, keepdims = False):
-    if axis == None:
-        maximum = matrix[0, 0]
-        for r in matrix:
-            for c in r:
-                if maximum < c:
-                    maximum = c
-        if keepdims:
-            return Matrix([[maximum]])
-        return maximum
-    elif axis == 0:
-        maximum = []
-        matrix = matrix.transpose()
-        for i, r in enumerate(matrix):
-            temp_max = r[0]
-            for j, c in enumerate(r):
-                if temp_max < c:
-                    temp_max = c
-            maximum.append(temp_max)
-        if keepdims:
-            return Matrix([maximum])
-        return maximum
-
-    elif axis == 1:
-        maximum = []
-        for i, r in enumerate(matrix):
-            temp_max = r[0]
-            for j, c in enumerate(r):
-                if temp_max < c:
-                    temp_max = c
-            maximum.append(temp_max)
-        if keepdims:
-            temp_matrix = []
-            for i in maximum:
-                temp_matrix.append([i])
-            return Matrix(temp_matrix)
-        return maximum
+    if type(matrix) == Matrix:
+        return matrix.max(axis, keepdims)
     else:
-        raise AxisError("axis {} is out of bounds for matrix of dimension 2".format(axis))
-
+        raise LinAlgError("The given argument must be a Matrix!")
 
 def min(matrix, axis = None, keepdims = False):
-    if axis == None:
-        minimum = matrix[0, 0]
-        for r in matrix:
-            for c in r:
-                if minimum > c:
-                    minimum = c
-        if keepdims:
-            return Matrix([[minimum]])
-        return minimum
-    elif axis == 0:
-        minimum = []
-        matrix = matrix.transpose()
-        for i, r in enumerate(matrix):
-            temp_min = r[0]
-            for j, c in enumerate(r):
-                if temp_min > c:
-                    temp_min = c
-            minimum.append(temp_min)
-        if keepdims:
-            return Matrix([minimum])
-        return minimum
-
-    elif axis == 1:
-        minimum = []
-        for i, r in enumerate(matrix):
-            temp_min = r[0]
-            for j, c in enumerate(r):
-                if temp_min > c:
-                    temp_min = c
-            minimum.append(temp_min)
-        if keepdims:
-            temp_matrix = []
-            for i in minimum:
-                temp_matrix.append([i])
-            return Matrix(temp_matrix)
-        return minimum
+    if type(matrix) == Matrix:
+        return matrix.min(axis, keepdims)
     else:
-        raise AxisError("axis {} is out of bounds for matrix of dimension 2".format(axis))
+        raise LinAlgError("The given argument must be a Matrix!")
 
 def sum(matrix, axis = None, keepdims = False):
-    if axis == None:
-        tmp = 0
-        for i in matrix:
-            for j in i:
-                tmp += j
-                
-        return tmp if keepdims == False else Matrix([[tmp]])
-    elif axis == 0:
-        tmp = []
-        for i in range(matrix.shape[1]):
-            tmp.append(0)
-            
-        for i in matrix:
-            for j in range(matrix.shape[1]):
-                tmp[j] += (i[j])
-                
-        return tmp if keepdims == False else Matrix([tmp])
-    
-    elif axis == 1:
-        tmp = []
-        for i in matrix:
-            tmp.append(builtins.sum(i)) 
-        
-        if keepdims == False:
-            return tmp
-        else:
-            tmp2 = []
-            for i in range(matrix.shape[0]):
-                tmp2.append([tmp[i]])
-            return Matrix(tmp2)
+    if type(matrix) == Matrix:
+        return matrix.sum(axis, keepdims)
+    else:
+        raise LinAlgError("The given argument must be a Matrix!")
