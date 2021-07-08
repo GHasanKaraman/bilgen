@@ -1,5 +1,5 @@
-from bilgen.matrix.array import Matrix
-from bilgen.matrix.errors import LinAlgError
+from matrix.array import Matrix
+from matrix.errors import LinAlgError
 
 def transpose(matrix):
     if type(matrix) == Matrix:
