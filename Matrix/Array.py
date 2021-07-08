@@ -1,6 +1,6 @@
-from bilgen.Matrix.Errors import MatrixError
-from bilgen.Matrix.Errors import AxisError
 import builtins
+from bilgen.matrix.errors import MatrixError
+from bilgen.matrix.errors import AxisError
 
 class Matrix:
     def __init__(self, array):
