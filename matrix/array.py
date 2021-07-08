@@ -145,6 +145,30 @@ class Matrix:
         else:
             return self.__add(self, other)
 
+    def __sub__(self, other):
+        if type(other) is int or type(other) is float:
+            temp = []
+            for row in self:
+                temp_row = []
+                for col in row:
+                    temp_row.append(col - other)
+                temp.append(temp_row)
+            return Matrix(temp)
+        else:
+            return self.__add(self, other*(-1))
+    
+    def __rsub__(self, other):
+        if type(other) is int or type(other) is float:
+            temp = []
+            for row in self:
+                temp_row = []
+                for col in row:
+                    temp_row.append(other - col)
+                temp.append(temp_row)
+            return Matrix(temp)
+        else:
+            return self.__add(other, self*(-1))
+
     def __mul__(self, other):
         if type(other) == int or type(other) == float:
             temp = []
