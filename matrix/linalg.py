@@ -14,8 +14,8 @@ def dot(matrix1, matrix2):
             for i in range(matrix1.shape[0]):
                 for k in range(matrix2.shape[1]):
                     for j in range(matrix2.shape[0]):
-                        temp[i,k] += matrix1[i,j]*matrix2[j,k]             
-            return Matrix(temp)
+                        temp[i,k] += matrix1[i,j]*matrix2[j,k]
+            return temp.copy()
         elif matrix1.shape[0] == matrix2.shape[0] and matrix1.shape[1] == matrix2.shape[1]:
             temp = zero(matrix1.shape[0],matrix1.shape[1])
             for i in range(matrix1.shape[0]):
