@@ -175,3 +175,25 @@ def sum(matrix, axis = None, keepdims = False):
         return matrix.sum(axis, keepdims)
     else:
         raise LinAlgError("The given argument must be a Matrix!")
+
+def vdot(matrix1, matrix2):
+   temp = 0
+   for i, r in enumerate(matrix1):
+      for j, c in enumerate(r):
+         temp += c*matrix2[i, j]
+   return temp
+
+def qr(matrix):
+   m, n = matrix.shape
+   Q = zero(m, n)
+   R = zero(n, n)
+   for j in range(n):
+      v = matrix[:, j]
+      for i in range(j - 1):
+         q = Q[:, i]
+         R[i, j] = vdot(q, v)
+         v = v - R[i, j] * q
+      norm_v = norm(v)
+      Q[:, j] = v / norm_v
+      R[j, j] = norm_v
+   return Q, R
