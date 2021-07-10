@@ -87,7 +87,67 @@ class Matrix:
             if type(index[0]) == int and type(index[1]) == int:
                 self.array[index[0]][index[1]] = value
             else:
-                pass               
+                temp = []
+                sliced_array = self.array[index[0]]
+                if not type(sliced_array[0]) == list:
+                    sliced_array = [sliced_array]
+                for arr in sliced_array:
+                    sliced_col = arr[index[1]]
+                    if not type(sliced_col) == list:
+                        sliced_col = [sliced_col]
+                    temp.append(sliced_col)
+                sliced_matrix = Matrix(temp)
+                if type(value) == Matrix and (sliced_matrix.shape == value.shape):                  
+                    index0 = index[0]
+                    index1 = index[1]
+                    if type(index[0]) == slice:
+                        index0 = str(index[0])
+                        index0 = index0.split("(")[1:][0]
+                        index0 = index0[:len(index0) - 1]
+                        index0 = index0.split(",")[:2]
+                        index0[0] = index0[0].strip()
+                        index0[1] = index0[1].strip()
+                        if index0[0] == "None":
+                            index0[0] = 0
+                        else:
+                            index0[0] = int(index0[0])
+                        if index0[1] == "None":
+                            index0[1] = self.shape[0]
+                        else:
+                            index0[1] = int(index0[1])
+                    if type(index[1]) == slice:
+                        index1 = str(index[1])
+                        index1 = index1.split("(")[1:][0]
+                        index1 = index1[:len(index1) - 1]
+                        index1 = index1.split(",")[:2]
+                        index1[0] = index1[0].strip()
+                        index1[1] = index1[1].strip()
+                        if index1[0] == "None":
+                            index1[0] = 0
+                        else:
+                            index1[0] = int(index1[0])
+                        if index1[1] == "None":
+                            index1[1] = self.shape[1]
+                        else:
+                            index1[1] = int(index1[1])
+                    if type(index0) == list and type(index1) == list:
+                        for i in range(index0[0], index0[1]):
+                            for j in range(index1[0], index1[1]):
+                                self[i, j] = value[i % (index0[1] - index0[0]) , j % (index1[1] - index1[0])]
+                    elif type(index0) == list and type(index1) == int:
+                        for i in range(index0[0], index0[1]):
+                            self[i, index1] = value[i, 0]
+                    elif type(index0) == int and type(index1) == list:
+                        for i in range(index1[0], index1[1]):
+                            self[index0, i] = value[0, i]
+                elif type(value) == int or type(value) == float:
+                    for i, r in enumerate(sliced_matrix):
+                        for j, c in enumerate(r):
+                            sliced_matrix[i, j] = value
+                    self[index] = sliced_matrix
+                else:
+                    raise ValueError("could not broadcast input array from shape {} into shape {}".format(value.shape, sliced_matrix.shape))
+                    
         else:
             self.array[index] = value
 
