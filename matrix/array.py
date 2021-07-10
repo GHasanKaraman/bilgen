@@ -18,6 +18,16 @@ class Matrix:
         self.array = array
         self.shape = (self.__row(), self.__col())
 
+    def copy(self):
+        temp = []
+        for r in self:
+            temp_row = []
+            for c in r:
+                temp_row.append(c) 
+            temp.append(temp_row)
+        matrix = Matrix(temp)
+        return matrix
+
     def __repr__(self):
         single_dimension_of_matrix = []
         for i in self.array:
@@ -75,7 +85,7 @@ class Matrix:
                     temp.append(sliced_col)
                 return Matrix(temp)               
         else:
-            return self.array[index]
+            return Matrix(self.array[index])
     
     def __setitem__(self, index, value):
         l = 0
