@@ -197,3 +197,54 @@ def qr(matrix):
       Q[:, j] = v / norm_v
       R[j, j] = norm_v
    return Q, R
+
+def __list_dim(a):
+    if not type(a) == list:
+        return []
+    return [len(a)] + __list_dim(a[0])
+
+def __list_check(a):
+    if not type(a) == list:
+        return
+    if all(isinstance(x, (list)) for x in a):
+        tmp = len(a[0])
+        for i in a:
+            if not tmp == len(i):
+                raise ValueError("all the input arrays must have same number of dimensions")
+            else:
+                __list_check(i)
+                        
+def hstack(tup):  
+    for i in tup:
+        __list_check(i)
+    
+    a = __list_dim(tup[0])
+        
+    for i in range(1, len(tup)):
+        if not a == __list_dim(tup[i]):
+            raise ValueError("all the input arrays must have same number of dimensions")
+   
+    tmp_1 = []
+    for i in range(len(tup[0])):
+        tmp_2 = []
+        for j in tup:
+            for k in j[i]:
+                tmp_2.append(k)
+        tmp_1.append(tmp_2)
+    return tmp_1      
+
+def vstack(tup):    
+    for i in tup:
+        __list_check(i)
+        
+    a = __list_dim(tup[0])
+    
+    for i in range(1, len(tup)):
+        if not a[1] == __list_dim(tup[i])[1]:
+            raise ValueError("all the input arrays must have same number of dimensions")
+   
+    tmp = []
+    for j in tup:
+        for k in j:
+            tmp.append(k)
+    return tmp    
