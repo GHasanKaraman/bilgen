@@ -231,7 +231,7 @@ def hstack(tup):
             for k in j[i]:
                 tmp_2.append(k)
         tmp_1.append(tmp_2)
-    return tmp_1      
+    return Matrix(tmp_1)      
 
 def vstack(tup):    
     for i in tup:
@@ -247,4 +247,4 @@ def vstack(tup):
     for j in tup:
         for k in j:
             tmp.append(k)
-    return tmp    
+    return Matrix(tmp)    
