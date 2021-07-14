@@ -200,6 +200,8 @@ class Matrix:
                     temp_row.append(col + other)
                 temp.append(temp_row)
             return Matrix(temp)
+        elif type(other) == Matrix:
+            return self.__add(self, other)
         else:
             return self.__add(self, other)
     
@@ -212,6 +214,8 @@ class Matrix:
                     temp_row.append(col + other)
                 temp.append(temp_row)
             return Matrix(temp)
+        elif type(other) == Matrix:
+            return self.__add(self, other)
         else:
             return self.__add(self, other)
 
@@ -224,6 +228,8 @@ class Matrix:
                     temp_row.append(col - other)
                 temp.append(temp_row)
             return Matrix(temp)
+        elif type(other) == Matrix:
+            return self.__add(self, other*(-1))
         else:
             return self.__add(self, other*(-1))
     
@@ -236,6 +242,8 @@ class Matrix:
                     temp_row.append(other - col)
                 temp.append(temp_row)
             return Matrix(temp)
+        elif type(other) == Matrix:
+            return self.__add(self*(-1), other)
         else:
             return self.__add(other, self*(-1))
 
