@@ -234,19 +234,13 @@ def orthonormal(A):
         raise LinAlgError("The given argument must be a Matrix!")   
 
 def qr(matrix):
-   m, n = matrix.shape
-   Q = zero(m, n)
-   R = zero(n, n)
-   for j in range(n):
-      v = matrix[:, j]
-      for i in range(j - 1):
-         q = Q[:, i]
-         R[i, j] = vdot(q, v)
-         v = v - R[i, j] * q
-      norm_v = norm(v)
-      Q[:, j] = v / norm_v
-      R[j, j] = norm_v
-   return Q, R
+    Q = orthonormal(matrix)
+    R = upper(matrix.shape[1])
+    for i in range(R.shape[0]):
+        for j in range(R.shape[0]):
+            if i <= j:
+                R[i, j] = vdot(matrix[:, j], Q[:, i]);
+    return Q, R
 
 def __list_dim(a):
     if not type(a) == list:
