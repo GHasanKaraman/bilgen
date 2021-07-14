@@ -208,7 +208,7 @@ def vdot(matrix1, matrix2):
          temp += c*matrix2[i, j]
    return temp
 
-def orth_basis(A):
+def orthogonal(A):
     if type(A) == Matrix:
         v = [A[:, i] for i in range(A.shape[1])]
         u = []
@@ -217,9 +217,21 @@ def orth_basis(A):
             for j in range(i):
                 temp_u -= (vdot(v[i], u[j])/vdot(u[j], u[j]))*u[j]
             u.append(temp_u)
+        matrix = zero(A.shape[0], A.shape[1])
+        for i in range(len(v)):
+            matrix[:, i] = u[i]
+        return matrix
+    else:
+        raise LinAlgError("The given argument must be a Matrix!")
+
+def orthonormal(A):
+    if type(A) == Matrix:
+        u = orthogonal(A)
+        for i in range(A.shape[1]):
+            u[:, i]/=norm(u[:, i])
         return u
     else:
-        raise LinAlgError("The given argument must be a Matrix!")         
+        raise LinAlgError("The given argument must be a Matrix!")   
 
 def qr(matrix):
    m, n = matrix.shape
