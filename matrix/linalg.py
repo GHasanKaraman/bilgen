@@ -310,3 +310,15 @@ def allclose(matrix1, matrix2, rtol=1e-05, atol=1e-08):
             raise LinAlgError("The matrices must be same size!")
     else:
         raise TypeError("The given arguments must be a Matrix!")
+
+def eigvals(A, tol = 0.0001):
+    x = random.rand((A.shape[0], 1))
+    y = dot(A, x)
+    while True:
+        temp = y.copy()
+        y = dot(A, x)
+        y = y/norm(y)
+        x = y
+        if allclose(temp, y, atol = tol):
+            break
+    return y
