@@ -153,6 +153,30 @@ def one(row, col):
         temp.append(temp_row)
     return Matrix(temp)
 
+def upper(size):
+    temp = []
+    for i in range(size):
+        temp_row = []
+        for j in range(size):
+            if i <= j:
+                temp_row.append(1)
+            else:
+                temp_row.append(0)
+        temp.append(temp_row)
+    return Matrix(temp)
+
+def lower(size):
+    temp = []
+    for i in range(size):
+        temp_row = []
+        for j in range(size):
+            if i >= j:
+                temp_row.append(1)
+            else:
+                temp_row.append(0)
+        temp.append(temp_row)
+    return Matrix(temp)
+
 def identity(size):
     temp = zero(size, size)
     for i in range(size):
