@@ -1,4 +1,5 @@
 from matrix.array import Matrix
+import matrix.random as random
 from matrix.errors import LinAlgError
 
 def transpose(matrix):
@@ -248,3 +249,21 @@ def vstack(tup):
         for k in j:
             tmp.append(k)
     return Matrix(tmp)    
+
+def allclose(matrix1, matrix2, rtol=1e-05, atol=1e-08):
+    if type(matrix1) == Matrix and type(matrix2) == Matrix:
+        r1, c1 = matrix1.shape
+        r2, c2 = matrix1.shape
+        if r1 == r2 and c1 == c2:
+            isClose = False
+            for i in range(r1):
+                for j in range(c1):
+                    if abs(matrix1[i, j] - matrix2[i, j]) <= atol and abs(matrix1[i, j] - matrix2[i, j]) <= rtol * abs(matrix2[i, j]):
+                        isClose = True
+                    else:
+                        isClose = False
+            return isClose
+        else:
+            raise LinAlgError("The matrices must be same size!")
+    else:
+        raise TypeError("The given arguments must be a Matrix!")
