@@ -208,6 +208,19 @@ def vdot(matrix1, matrix2):
          temp += c*matrix2[i, j]
    return temp
 
+def orth_basis(A):
+    if type(A) == Matrix:
+        v = [A[:, i] for i in range(A.shape[1])]
+        u = []
+        for i in range(len(v)):
+            temp_u = v.copy()[i]
+            for j in range(i):
+                temp_u -= (vdot(v[i], u[j])/vdot(u[j], u[j]))*u[j]
+            u.append(temp_u)
+        return u
+    else:
+        raise LinAlgError("The given argument must be a Matrix!")         
+
 def qr(matrix):
    m, n = matrix.shape
    Q = zero(m, n)
